@@ -1,9 +1,14 @@
+
 export default function Input({
     id,
     label,
     type = 'text',
     name,
     placeholder,
+    value,
+    onChange,
+    error,
+    autoComplete,
   }) {
     return (
       <div className="flex min-h-[80px] w-full flex-col gap-2">
@@ -19,8 +24,13 @@ export default function Input({
           type={type}
           name={name}
           placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          autoComplete={autoComplete}
+          aria-invalid={Boolean(error)}
           className="h-14 w-full rounded-xl border border-navy-800 bg-[rgba(0,29,61,0.78)] px-4 text-[15px] text-white outline-none transition placeholder:text-auth-slate focus:border-yellow-400/60 focus:ring-2 focus:ring-yellow-400/25"
         />
       </div>
     );
   }
+  

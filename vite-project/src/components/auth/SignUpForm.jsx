@@ -1,10 +1,26 @@
 
+import { useState } from 'react';
 import Input from '../ui/Input.jsx';
 import Button from '../ui/Button.jsx';
 import AuthDivider from './AuthDivider.jsx';
 import SocialLogin from './SocialLogin.jsx';
 
 export default function SignUpForm({ onSwitchForm }) {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setFormData((previousData) => ({
+      ...previousData,
+      [name]: value,
+    }));
+  }
+
   return (
     <section className="flex w-[min(480px,calc(100vw-32px))] flex-col gap-[18px] rounded-3xl border border-[rgba(0,53,102,0.88)] bg-[rgba(0,29,61,0.67)] px-[30px] pb-[30px] pt-[34px] shadow-[0_24px_48px_-8px_rgba(0,0,0,0.38)] backdrop-blur-[11px]">
       <header className="text-center">
@@ -22,20 +38,31 @@ export default function SignUpForm({ onSwitchForm }) {
           label="Full Name"
           name="name"
           placeholder="Your full name"
+          value={formData.name}
+          onChange={handleChange}
+          autoComplete="name"
         />
+
         <Input
           id="signup-email"
           label="Email Address"
           type="email"
           name="email"
           placeholder="you@example.com"
+          value={formData.email}
+          onChange={handleChange}
+          autoComplete="email"
         />
+
         <Input
           id="signup-password"
           label="Password"
           type="password"
           name="password"
           placeholder="••••••••"
+          value={formData.password}
+          onChange={handleChange}
+          autoComplete="new-password"
         />
       </div>
 
