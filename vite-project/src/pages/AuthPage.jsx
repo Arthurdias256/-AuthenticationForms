@@ -1,7 +1,14 @@
 export default function AuthPage() {
     return (
-      <main>
+        <main>
         <h1>Authentication UI</h1>
+        <Input
+          id="example-email"
+          label="Email Address"
+          name="email"
+          type="email"
+          placeholder="you@example.com"
+        />
       </main>
     );
   }
