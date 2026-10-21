@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import BackgroundEffects from '../components/layout/BackgroundEffects.jsx';
 import AuthBadge from '../components/ui/AuthBadge.jsx';
@@ -8,7 +9,7 @@ export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(true);
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-navy-950 p-4">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-navy-950 p-4 py-24">
       <BackgroundEffects />
       <AuthBadge />
 
@@ -17,7 +18,15 @@ export default function AuthPage() {
       </span>
 
       <div className="relative z-10">
-        {isSignUp ? <SignUpForm /> : <SignInForm />}
+        {isSignUp ? (
+          <SignUpForm
+            onSwitchForm={() => setIsSignUp(false)}
+          />
+        ) : (
+          <SignInForm
+            onSwitchForm={() => setIsSignUp(true)}
+          />
+        )}
       </div>
     </main>
   );
