@@ -28,8 +28,19 @@ export default function Input({
           onChange={onChange}
           autoComplete={autoComplete}
           aria-invalid={Boolean(error)}
-          className="h-14 w-full rounded-xl border border-navy-800 bg-[rgba(0,29,61,0.78)] px-4 text-[15px] text-white outline-none transition placeholder:text-auth-slate focus:border-yellow-400/60 focus:ring-2 focus:ring-yellow-400/25"
+          aria-describedby={error ? `${id}-error` : undefined}
+          className={`h-14 w-full rounded-xl border bg-[rgba(0,29,61,0.78)] px-4 text-[15px] text-white outline-none transition placeholder:text-auth-slate ${
+            error
+              ? 'border-auth-red focus:ring-2 focus:ring-auth-red/40'
+              : 'border-navy-800 focus:border-yellow-400/60 focus:ring-2 focus:ring-yellow-400/25'
+          }`}
         />
+  
+        {error && (
+          <p id={`${id}-error`} className="-mt-1 text-xs text-auth-red">
+            {error}
+          </p>
+        )}
       </div>
     );
   }

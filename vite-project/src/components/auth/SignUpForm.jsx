@@ -12,6 +12,8 @@ export default function SignUpForm({ onSwitchForm }) {
     password: '',
   });
 
+  const [errors, setErrors] = useState({});
+
   function handleChange(event) {
     const { name, value } = event.target;
 
@@ -19,6 +21,39 @@ export default function SignUpForm({ onSwitchForm }) {
       ...previousData,
       [name]: value,
     }));
+  }
+
+  function validateForm() {
+    const nextErrors = {};
+
+    if (!formData.name.trim()) {
+      nextErrors.name = 'Full name is required.';
+    }
+
+    if (!formData.email.trim()) {
+      nextErrors.email = 'Email is required.';
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      nextErrors.email = 'Enter a valid email.';
+    }
+
+    if (!formData.password) {
+      nextErrors.password = 'Password is required.';
+    } else if (formData.password.length < 6) {
+      nextErrors.password = 'Use at least 6 characters.';
+    }
+
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    console.log(formData);
   }
 
   return (
@@ -32,41 +67,46 @@ export default function SignUpForm({ onSwitchForm }) {
         </p>
       </header>
 
-      <div className="flex flex-col gap-3">
-        <Input
-          id="signup-name"
-          label="Full Name"
-          name="name"
-          placeholder="Your full name"
-          value={formData.name}
-          onChange={handleChange}
-          autoComplete="name"
-        />
+      <form onSubmit={handleSubmit} className="flex flex-col gap-[18px]">
+        <div className="flex flex-col gap-3">
+          <Input
+            id="signup-name"
+            label="Full Name"
+            name="name"
+            placeholder="Your full name"
+            value={formData.name}
+            onChange={handleChange}
+            error={errors.name}
+            autoComplete="name"
+          />
 
-        <Input
-          id="signup-email"
-          label="Email Address"
-          type="email"
-          name="email"
-          placeholder="you@example.com"
-          value={formData.email}
-          onChange={handleChange}
-          autoComplete="email"
-        />
+          <Input
+            id="signup-email"
+            label="Email Address"
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            value={formData.email}
+            onChange={handleChange}
+            error={errors.email}
+            autoComplete="email"
+          />
 
-        <Input
-          id="signup-password"
-          label="Password"
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          value={formData.password}
-          onChange={handleChange}
-          autoComplete="new-password"
-        />
-      </div>
+          <Input
+            id="signup-password"
+            label="Password"
+            type="password"
+            name="password"
+            placeholder="••••••••"
+            value={formData.password}
+            onChange={handleChange}
+            error={errors.password}
+            autoComplete="new-password"
+          />
+        </div>
 
-      <Button type="button">Create Account</Button>
+        <Button type="submit">Create Account</Button>
+      </form>
 
       <AuthDivider />
       <SocialLogin />
