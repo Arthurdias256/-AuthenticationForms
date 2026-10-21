@@ -1,12 +1,11 @@
+import { useState } from 'react';
 import BackgroundEffects from '../components/layout/BackgroundEffects.jsx';
 import AuthBadge from '../components/ui/AuthBadge.jsx';
 import SignInForm from '../components/auth/SignInForm.jsx';
 import SignUpForm from '../components/auth/SignUpForm.jsx';
 
-const CURRENT_VIEW = 'signup';
-
 export default function AuthPage() {
-  const isSignUp = CURRENT_VIEW === 'signup';
+  const [isSignUp, setIsSignUp] = useState(true);
 
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-navy-950 p-4">
